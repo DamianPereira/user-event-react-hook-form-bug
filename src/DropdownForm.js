@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 const DropdownForm = () => {
-  const { register } = useForm({
+  const { register, errors } = useForm({
     mode: "onChange",
   });
-
   return (
     <form>
       <select
-        defaultValue={0}
         name="test"
-        ref={register({ required: true })}
+        ref={register({
+          validate: (value) => {
+            return value !== "3";
+          },
+        })}
       >
         <option value={1}>1</option>
         <option value={2}>2</option>
         <option value={3}>3</option>
       </select>
+      {errors.test && "Option can't be 3!"}
     </form>
   );
 };
