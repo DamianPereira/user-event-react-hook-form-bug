@@ -1,11 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-const DropdownForm = () => {
+const DropdownForm = ({ onSubmit }) => {
   const { register, errors } = useForm({
     mode: "onChange",
   });
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(e);
+      }}
+    >
       <select
         name="test"
         ref={register({
@@ -19,6 +24,7 @@ const DropdownForm = () => {
         <option value={3}>3</option>
       </select>
       {errors.test && "Option can't be 3!"}
+      <button type="submit">Submit</button>
     </form>
   );
 };
